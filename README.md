@@ -8,6 +8,7 @@
 ### Generating top view  
 1. Selects four points in the image in the Region of interest, whose top view is required:  
 	1. `python getRealOneGazebo.py --rgb 'data/drone1/rgb/rgb000540.jpg' --depth 'data/drone1/depth/depth000540.npy' --camera_file configs/camera_gazebo_drone.txt`   
+	2. It generates Homography matrics for orthographic view of the provided image.
 
 ### Caculating transformation  
 1. Inferring on gazebo dataset in orthographic view:    
@@ -15,6 +16,7 @@
 		2. `python register.py --rgb1 <img1.jpg>  --rgb2 <img2.jpg>  --depth1 <depth1.npy>  --depth2 <depth2.npy>  --camera_file ../configs/camera_gazebo.txt  --H ../configs/topH.npy  --model_rord ../models/rord.pth --viz3d --save_trans`  
 		3. If homography is different for the two images, then use `--H` and `--H2` flags:  
 		`python register.py --H <first_homography.npy> --H2 <second_homography.npy>`     
+		4. Saves the Transformation matrix from one image to another.
 
 2. Converting RoRD transformations (in camera frame and in left handed system) to loop closure transformations (in odom frame and in right handed system):  
 	1. Getting static transform from ros, `Tbase_camera` or `Camera wrt Base link`
