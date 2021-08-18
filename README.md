@@ -11,6 +11,13 @@
 	2. It generates Homography matrics for orthographic view of the provided image.
 
 ### Caculating transformation  
+
+In last part, we got Homography matrics for orthographic view for each and every images input. Now, we perform two steps:-
+1. Calculate the transformation from one orthographic view to another. By default, this is in camera frame(also left handed system).
+2. This need to be in odom frame(also right handed system). Hence, the step `2`.
+
+The steps are:-
+
 1. Inferring on gazebo dataset in orthographic view:    
 		1. `cd demo`  
 		2. `python register.py --rgb1 <img1.jpg>  --rgb2 <img2.jpg>  --depth1 <depth1.npy>  --depth2 <depth2.npy>  --camera_file ../configs/camera_gazebo.txt  --H ../configs/topH.npy  --model_rord ../models/rord.pth --viz3d --save_trans`  
