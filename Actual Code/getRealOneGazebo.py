@@ -26,6 +26,11 @@ parser.add_argument(
 	help='path to the camera intrinsics file. In order: focal_x, focal_y, center_x, center_y, scaling_factor.'
 )
 
+parser.add_argument(
+	'--save', type=str,
+	help='save the generated homography matrix in this path provided'
+)
+
 args = parser.parse_args()
 
 
@@ -49,32 +54,12 @@ def display(pcd, T=np.identity(4)):
 	o3d.visualization.draw_geometries([pcd, axis])
 
 
-# def readDepth(depthFile):
-# 	depth = Image.open(depthFile)
-# 	if depth.mode != "I":
-# 		raise Exception("Depth image is not in intensity format")
-
-# 	return np.asarray(depth)
-
-
 def getPointCloud(rgbFile, depthFile):
 	pts = [(x_c[0], y_c[0]), (x_c[1], y_c[1]), (x_c[2], y_c[2]), (x_c[3], y_c[3])]
 	poly = Polygon(pts)
-
-	# thresh = 5.6
 	thresh = 15.0
-
 	depth = np.load(depthFile)
 	rgb = Image.open(rgbFile)
-
-	# cv2.imshow("Image",  np.array(cv2.cvtColor(np.array(rgb), cv2.COLOR_BGR2RGB)))
-	# cv2.waitKey(0)
-
-	# print(type(depth))
-	# print(np.unique(depth))
-	# print(rgb.size, depth.shape)
-	# exit(1)
-
 	points = []
 	colors = []
 	srcPxs = []
@@ -104,12 +89,6 @@ def getPointCloud(rgbFile, depthFile):
 	pcd = o3d.geometry.PointCloud()
 	pcd.points = o3d.utility.Vector3dVector(points)
 	pcd.colors = o3d.utility.Vector3dVector(colors/255)
-
-	# display(pcd)
-	# exit(1)
-
-	# downpcd = pcd.voxel_down_sample(voxel_size=0.03)
-
 	return pcd, srcPxs
 
 
@@ -190,8 +169,6 @@ def getImgHomo(pcd, T, srcPxs, rgbFile):
 	pcd = getPointsInCamera(pcd, T)
 
 	pcdPoints, pcdColor = extractPCD(pcd)
-	# print(np.mean(pcdPoints, axis=0))
-
 	trgPxs = getPixels(pcdPoints)
 
 	imgSize = 400
@@ -211,9 +188,7 @@ def getPlane(pcd):
 	planeModel, inliers = pcd.segment_plane(distance_threshold=0.01, ransac_n=3, num_iterations=1000)
 	[a, b, c, d] = planeModel
 	surfaceNormal = [-a, -b, -c]
-	# surfaceNormal = [a, b, c]
 	planeDis = d
-	# print("Plane equation: {}x + {}y + {}z + {} = 0".format(a, b, c, d))
 	return surfaceNormal, planeDis
 
 
@@ -221,9 +196,6 @@ def getTopImage(rgbFile, depthFile):
 	pcd, srcPxs = getPointCloud(rgbFile, depthFile)
 
 	surfaceNormal = -getNormals(pcd)
-	# surfaceNormal, planeDis = getPlane(pcd)
-	# display(pcd); exit(1)
-
 	zAxis = np.array([0, 0, 1])
 	rotationMatrix = rotationMatrixFromVectors(zAxis, surfaceNormal)
 	T = np.identity(4)
@@ -245,7 +217,6 @@ def click_event(event, x, y, flags, params):
 	if event == cv2.EVENT_LBUTTONDOWN:
 		# displaying the coordinates
 	    # on the Shell
-		#print(x, ' ', y)
 		ix = x
 		iy = y
 
@@ -263,26 +234,6 @@ if __name__ == '__main__':
 	rgbFile = args.rgb
 	depthFile = args.depth
 
-	# Realsense D415
-	# focalX = 607.8118896484375
-	# focalY = 606.7265625
-	# centerX = 324.09228515625
-	# centerY = 235.1124725341797
-
-	# Realsense D455
-	# focalX = 382.1996765136719
-	# focalY = 381.8395690917969
-	# centerX = 312.7102355957031
-	# centerY = 247.72047424316406
-
-	# Gazebo
-	# focalX = 402.29
-	# focalY = 402.29
-	# centerX = 320.5
-	# centerY = 240.5
-
-	# scalingFactor = 1000.0
-
 	focalX, focalY, centerX, centerY, scalingFactor = readCamera(args.camera_file)
 
 	img = cv2.imread(rgbFile)
@@ -294,5 +245,6 @@ if __name__ == '__main__':
 
 	warpImg, homographyMat = getTopImage(rgbFile, depthFile)
 
-	# cv2.imwrite('top1000img.png', warpImg)
-	np.save('./my_run/homography_matrix/topH540.npy', homographyMat)
+	print("Homography Matrix = \n", homographyMat);
+	if args.save:
+		np.save(args.save, homographyMat)

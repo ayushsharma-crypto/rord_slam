@@ -1,0 +1,23 @@
+For data5:-
+
+1) 
+cd 'Actual Code'
+
+2) 
+python getRealOneGazebo.py --rgb '../Files/data_gazebo/data5/rgb/rgb000000.jpg' --depth '../Files/data_gazebo/data5/depth/depth000000.npy' --camera_file configs/camera_gazebo.txt --save './intermediate_data/data5/topH.npy'
+
+3)
+cd demo
+
+4)
+python register.py --rgb1 '../../Files/data_gazebo/data5/rgb/rgb000000.jpg' --rgb2 '../../Files/data_gazebo/data5/rgb/rgb000001.jpg' --depth1 '../../Files/data_gazebo/data5/depth/depth000000.npy' --depth2 '../../Files/data_gazebo/data5/depth/depth000001.npy' --camera_file ../configs/camera_gazebo.txt --H '../intermediate_data/data5/topH.npy' --model_rord ../../Files/models/rord.pth --viz3d --save_trans  '../intermediate_data/data5/all_transLC/01.npy'
+
+(This step 4 will be for all consecutive odometry data.)
+
+
+5)
+python cordTrans.py --static_trans ../configs/camWrtBase.txt --rord_trans '../intermediate_data/data5/all_transLC/01.npy' --save_edge '../intermediate_data/data5/all_odom_transLC.txt'
+
+(This step 5 will be for all transition matrix generated consecutive odometry data.)
+
+
