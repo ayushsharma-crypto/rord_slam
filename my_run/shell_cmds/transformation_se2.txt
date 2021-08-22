@@ -1,1 +1,0 @@
-python cordTrans.py --static_trans ../configs/camWrtBase.txt --rord_trans ../demo/transLC.npy

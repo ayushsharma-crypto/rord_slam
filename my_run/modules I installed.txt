@@ -1,5 +1,0 @@
-pip install pydegensac
-pip install scikit-image
-pip install imagio
-pip install pytorch
-pip install open3d
