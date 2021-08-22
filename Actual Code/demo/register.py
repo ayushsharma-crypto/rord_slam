@@ -60,7 +60,7 @@ parser.add_argument(
 )
 
 parser.add_argument(
-	'--save_trans', action='store_true',
+	'--save_trans', type=str, 
 	help='Saves final transformation in .npy format'
 )
 
@@ -293,7 +293,7 @@ if __name__ == "__main__":
 	print("Transformation matrix: \n", trans_init)
 
 	if args.save_trans:
-		np.save('./transLC.npy', trans_init)
+		np.save(args.save_trans, trans_init)
 		print("Transformation matrix saved.")
 
 
