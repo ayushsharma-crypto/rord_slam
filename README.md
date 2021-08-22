@@ -2,8 +2,11 @@
 
 ### Pretrained Models and dataset  
 
-1. Download models from [Google Drive](https://drive.google.com/file/d/1-5aLHyZ_qlHFNfRnDpXUh5egtf_XtoiA/view?usp=sharing) (73.9 MB) in the base directory.    
-2. Download dataset from [Google Drive](https://drive.google.com/file/d/1BkhcHBKwcjNHgbLZ1XKurpcP7v4hFD_b/view?usp=sharing) (97.8 MB)  
+1. Download gazebo_dataset (mainly data5 and data6) [Google Drive](https://drive.google.com/file/d/1Yr7PW7nS03MatvqubV1iX18so6F6ieKW/view) (382 MB)
+2. Download models from [Google Drive](https://drive.google.com/file/d/1-5aLHyZ_qlHFNfRnDpXUh5egtf_XtoiA/view?usp=sharing) (73.9 MB) in the base directory.    
+3. Download dataset from [Google Drive](https://drive.google.com/file/d/1BkhcHBKwcjNHgbLZ1XKurpcP7v4hFD_b/view?usp=sharing) (97.8 MB)  
+
+`Ignored through .gitignore file`
 
 ### Generating top view  
 1. Selects four points in the image in the Region of interest, whose top view is required:  
