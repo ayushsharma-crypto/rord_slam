@@ -295,4 +295,4 @@ if __name__ == '__main__':
 	warpImg, homographyMat = getTopImage(rgbFile, depthFile)
 
 	# cv2.imwrite('top1000img.png', warpImg)
-	np.save('/home/cair/Desktop/topH540.npy', homographyMat)
+	np.save('./my_run/homography_matrix/topH540.npy', homographyMat)

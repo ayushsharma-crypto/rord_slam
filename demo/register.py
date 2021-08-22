@@ -263,10 +263,10 @@ if __name__ == "__main__":
 		srcPts, trgPts, matchImg, matchImgOrtho = siftMatching(args.rgb1, args.rgb2, srcH, trgH, device)
 
 	#### Visualization ####
-	print("\nShowing matches in perspective and orthographic view. Press q\n")
-	cv2.imshow('Orthographic view', matchImgOrtho)
-	cv2.imshow('Perspective view', matchImg)
-	cv2.waitKey()
+	# print("\nShowing matches in perspective and orthographic view. Press q\n")
+	# cv2.imshow('Orthographic view', matchImgOrtho)
+	# cv2.imshow('Perspective view', matchImg)
+	# cv2.waitKey()
 
 	srcPts = convertPts(srcPts)
 	trgPts = convertPts(trgPts)
@@ -282,7 +282,7 @@ if __name__ == "__main__":
 
 	corr = get3dCor(srcIdx, trgIdx)
 
-	p2p = o3d.registration.TransformationEstimationPointToPoint()
+	p2p = o3d.pipelines.registration.TransformationEstimationPointToPoint()
 	trans_init = p2p.compute_transformation(srcCld, trgCld, o3d.utility.Vector2iVector(corr))
 
 	# trans_init = o3d.registration.registration_colored_icp(srcCld, trgCld, 0.02, trans_init,
@@ -293,7 +293,7 @@ if __name__ == "__main__":
 	print("Transformation matrix: \n", trans_init)
 
 	if args.save_trans:
-		np.save('../data/drone1/transLC941_1877.npy', trans_init)
+		np.save('./transLC.npy', trans_init)
 		print("Transformation matrix saved.")
 
 
