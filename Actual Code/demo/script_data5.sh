@@ -14,7 +14,7 @@ camWrtBase='../configs/camWrtBase.txt'
 
 PYTHON="/usr/bin/python3"
 
-for i in `seq 1 1`;
+for i in `seq 1 1829`;
     do
         pj=""
         pi=""
