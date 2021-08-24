@@ -21,3 +21,10 @@ python cordTrans.py --static_trans ../configs/camWrtBase.txt --rord_trans '../in
 (This step 5 will be for all transition matrix generated consecutive odometry data.)
 
 
+(6)
+
+python genG2o.py ../intermediate_data/data5/poses.txt
+
+(7)
+
+python optimizePose.py ../intermediate_data/data5/noise.g2o ../intermediate_data/data5/loop_pairs.txt 
