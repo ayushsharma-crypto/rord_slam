@@ -31,6 +31,16 @@ parser.add_argument(
 	'--save_edge', type=str, 
 	help='Saves final odom frame transformation edge in .txt format'
 )
+
+parser.add_argument(
+	'--p1', type=str, 
+	help='Gets & Saves image number from odometry data.'
+)
+
+parser.add_argument(
+	'--p2', type=str, 
+	help='Gets & Saves image number from odometry data.'
+)
 args = parser.parse_args()
 
 
@@ -105,7 +115,7 @@ def leftTransToRight(T12L):
 	return T12R
 
 
-def printEdge(T):
+def printEdge(T,p1,p2):
 	# T = np.linalg.inv(T)
 	Rot = R.from_dcm(T[0:3, 0:3])
 	euler = Rot.as_euler('xyz', degrees=True)
@@ -115,6 +125,7 @@ def printEdge(T):
 
 	if args.save_edge:
 			with open(args.save_edge, "a") as myfile:
+				myfile.write(str(p1)+" " +str(p2)+"\n")
 				myfile.write(str(T[0, 3])+ " " + str(T[0, 1]) + " " + str(euler[2]) + "\n")
 			print("Edge saved.")
 	print(T[0, 3], T[0, 1], euler[2])
@@ -150,4 +161,4 @@ if __name__ == '__main__':
 	if args.se3:
 		printEdgeSE3(TB1B2R)
 	else:
-		printEdge(TB1B2R)
+		printEdge(TB1B2R,args.p1,args.p2)

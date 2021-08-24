@@ -1,24 +1,32 @@
 #!/bin/bash
 
-data_path='../../Files/data_gazebo/data5/'
+PYTHON="/usr/bin/python3"
+
 jpg=".jpg"
 npy=".npy"
 rgb="rgb/rgb"
 depth="depth/depth"
-transLC='../intermediate_data/data5/all_transLC/'
-odom_edge='../intermediate_data/data5/all_odom_transLC.txt'
-camera_file='../configs/camera_gazebo.txt'
+
+data_path='../../Files/data_gazebo/data5/'
 topH='../intermediate_data/data5/topH.npy'
+camera_file='../configs/camera_gazebo.txt'
 model_rord="../../Files/models/rord.pth"
 camWrtBase='../configs/camWrtBase.txt'
 
-PYTHON="/usr/bin/python3"
 
-for i in `seq 1 1829`;
+transLC='../intermediate_data/data5/few_transLC_loop_pairs/'
+odom_edge='../intermediate_data/data5/few_odom_transLC_loop_pairs.txt'
+
+
+loop_point_1=(156 261 410 562 660 1015 1088 353 450 894 1389)
+loop_point_2=(1657 1535 1427 783 698 1284 1208 450 894 1389 1423)
+
+for idx in `seq 0 10`;
     do
+        j=${loop_point_1[idx]}
+        i=${loop_point_2[idx]}
         pj=""
         pi=""
-        j=$((i-1))
 
         if [ ${#j} == 1 ]
         then 
@@ -53,6 +61,7 @@ for i in `seq 1 1829`;
         then
             pi="0"
         fi
+
         rgb1="$data_path$rgb$pj$j$jpg"
         rgb2="$data_path$rgb$pi$i$jpg"
         d1="$data_path$depth$pj$j$npy"
@@ -72,7 +81,7 @@ for i in `seq 1 1829`;
         echo
         echo "Saved transLC..."
         echo 
-        $PYTHON ./cordTrans.py --static_trans $camWrtBase --rord_trans $curr_transLC --save_edge $odom_edge
+        $PYTHON ./cordTrans.py --static_trans $camWrtBase --rord_trans $curr_transLC --save_edge $odom_edge --p1 ${loop_point_1[idx]} --p2 ${loop_point_2[idx]}
         echo
         echo "$i edge done..."
         echo 
