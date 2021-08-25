@@ -7,21 +7,21 @@ npy=".npy"
 rgb="rgb/rgb"
 depth="depth/depth"
 
-data_path='../../Files/data_gazebo/data6/'
-topH='../intermediate_data/data6/topH.npy'
+data_path='../../Files/data_gazebo/big_dataset/'
+topH='../intermediate_data/big_dataset/topH.npy'
 camera_file='../configs/camera_gazebo.txt'
 model_rord="../../Files/models/rord.pth"
 camWrtBase='../configs/camWrtBase.txt'
 
 
-transLC='../intermediate_data/data6/few_transLC_loop_pairs/'
-odom_edge='../intermediate_data/data6/few_odom_transLC_loop_pairs.txt'
+transLC='../intermediate_data/big_dataset/few_transLC_loop_pairs/'
+odom_edge='../intermediate_data/big_dataset/few_odom_transLC_loop_pairs.txt'
 
 
-loop_point_1=(59 135 188 300 320 336 382 445 508 595 606 620 693 749 854)
-loop_point_2=(1622 1551 1485 1389 1375 1352 1293 1218 1161 1106 1098 1072 990 941 882)
+loop_point_1=(133 179)
+loop_point_2=(1688 1630)
 
-for idx in `seq 0 14`;
+for idx in `seq 0 1`;
     do
         j=${loop_point_1[idx]}
         i=${loop_point_2[idx]}
