@@ -18,10 +18,10 @@ transLC='../intermediate_data/data5/few_transLC_loop_pairs/'
 odom_edge='../intermediate_data/data5/few_odom_transLC_loop_pairs.txt'
 
 
-loop_point_1=(156 261 410 562 660 1015 1088 353 450 894 1389)
-loop_point_2=(1657 1535 1427 783 698 1284 1208 450 894 1389 1423)
+loop_point_1=(156 261 410 562 660 1015 1088 353 450 894 1389 1)
+loop_point_2=(1657 1535 1427 783 698 1284 1208 450 894 1389 1423 1754)
 
-for idx in `seq 0 10`;
+for idx in `seq 0 11`;
     do
         j=${loop_point_1[idx]}
         i=${loop_point_2[idx]}
