@@ -59,10 +59,11 @@ def readG2o(fileName):
 
 	for line in A:
 		if "VERTEX_SE2" in line:
-			(ver, ind, x, y, theta) = line.split(' ')
-			X.append(float(x))
-			Y.append(float(y))
-			THETA.append(float(theta.rstrip('\n')))
+				k = line.rstrip(' \n')
+				(ver, ind, x, y, theta) = k.split(' ')
+				X.append(float(x))
+				Y.append(float(y))
+				THETA.append(float(theta.rstrip(' \n')))
 
 	return (X, Y, THETA)
 
@@ -124,7 +125,7 @@ def writeG2O(X, Y, THETA, src, trg, trans):
 	g2o.close()
 
 
-def optimize():
+def optimize(dirc):
 	cmd = "g2o -robustKernel Cauchy -robustKernelWidth 1 -o {} -i 50 {} > /dev/null 2>&1".format(
 		os.path.join(dirc, "opt.g2o"), 
 		os.path.join(dirc, "noise_lc.g2o"))
@@ -143,7 +144,7 @@ if __name__ == '__main__':
 
 	writeG2O(X, Y, THETA, src, trg, trans)
 
-	optimize()
+	optimize(dirc)
 	(xOpt, yOpt, tOpt) = readG2o(os.path.join(dirc, "opt.g2o"))
 	# draw(xOpt, yOpt, tOpt)
 	drawLC(xOpt, yOpt, tOpt, src, trg)
