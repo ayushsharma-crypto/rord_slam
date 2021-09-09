@@ -76,12 +76,13 @@ def read_pose_graph_vertices(filepath):
     return x_val, y_val, yaw_val
 
 
-def draw(X, Y):
+def draw(X, Y, name):
 	ax = plt.subplot(111)
 	ax.plot(X, Y, 'ro')
 	ax.plot(X, Y, 'k-')
 	ax.set_aspect('equal', 'datalim')
 	ax.margins(0.1)
+	plt.title(name)
 	plt.show()
 
 
@@ -134,11 +135,16 @@ def addNoise(X, Y, THETA):
 
 
 if __name__ == '__main__':
-	X, Y, YAW = read_poses(argv[1])
-	pose_graph_name = argv[2]
-	draw(X, Y)
-	# (xN, yN, tN) = addNoise(X, Y, THETA)
-	# draw(xN, yN, tN)
-	build_pose_graph(X, Y, YAW, pose_graph_name)
-	(xOpt, yOpt, tOpt) = read_pose_graph_vertices(pose_graph_name)
-	draw(xOpt, yOpt)
+    pose_file_path = argv[1]
+    pose_graph_name = argv[2]
+    with_noise = argv[3]
+    X, Y, YAW = read_poses(argv[1])
+    draw(X, Y, "Raw Pose Graph From ROS")
+    if with_noise=='1':
+        (XN, YN, YAWM) = addNoise(X, Y, YAW)
+        draw(XN, YN, "Added Noise To Pose Graph")
+        build_pose_graph(XN, YN, YAW, pose_graph_name)
+    else:
+        build_pose_graph(X, Y, YAW, pose_graph_name)
+    (xOpt, yOpt, tOpt) = read_pose_graph_vertices(pose_graph_name)
+    draw(xOpt, yOpt, "Before Optimisation")
