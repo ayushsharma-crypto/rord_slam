@@ -2,4 +2,4 @@ cd  /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD SLAM/My RoRD Versi
 
 python add_noise.py ../intermediate_data/data5/poses.txt pose_graph_data5.g2o 1
 
-python opt.py pose_graph_data5.g2o ../intermediate_data/data5/loop_pairs.txt noise_lc_data5.g20 final_data5.g20
+python opt.py pose_graph_data5.g2o ../intermediate_data/data5/loop_pairs.txt noise_lc_data5.g2o final_data5.g2o
