@@ -54,8 +54,8 @@ def display(pcd, T=np.identity(4)):
 	o3d.visualization.draw_geometries([pcd, axis])
 
 
-def getPointCloud(rgbFile, depthFile):
-	pts = [(x_c[0], y_c[0]), (x_c[1], y_c[1]), (x_c[2], y_c[2]), (x_c[3], y_c[3])]
+def getPointCloud(rgbFile, depthFile):	# calculate point cloud w.r.t camera frame(origin & basis)
+	pts = [(x_c[0], y_c[0]), (x_c[1], y_c[1]), (x_c[2], y_c[2]), (x_c[3], y_c[3])]	# water image of orignal image
 	poly = Polygon(pts)
 	thresh = 15.0
 	depth = np.load(depthFile)
@@ -242,6 +242,13 @@ if __name__ == '__main__':
 	cv2.setMouseCallback('image', click_event)
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
+
+	for x in x_c:
+    		print(x,end=None)
+	print()
+	for y in y_c:
+    		print(y,end=None)
+	print()
 
 	warpImg, homographyMat = getTopImage(rgbFile, depthFile)
 
