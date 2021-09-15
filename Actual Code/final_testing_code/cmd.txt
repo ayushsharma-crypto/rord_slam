@@ -1,0 +1,74 @@
+python add_noise.py ../intermediate_data/data5/poses.txt ./data5/gt.g2o ./data5/gt_noise.g2o
+
+python opt.py ./data5/gt_noise.g2o ../intermediate_data/data5/loop_pairs_udit_sir.txt ./data5/gt_noise_lc.g2o ./data5/final.g2o
+
+python add_noise.py ../intermediate_data/big_dataset/poses.txt ./bigdataset/gt.g2o ./bigdataset/gt_noise.g2o
+
+python opt.py ./bigdataset/gt_noise.g2o ../intermediate_data/big_dataset/loop_pairs.txt ./bigdataset/gt_noise_lc.g2o ./bigdataset/final.g2o
+
+
+cd Actual\ Code/final_testing_code/
+clear
+python evo.py ./data5/gt.g2o ./data5_evo/gt.kitti
+python evo.py ./data5/gt_noise_lc.g2o ./data5_evo/gt_noise_lc.kitti
+python evo.py ./data5/final.g2o ./data5_evo/final.kitti
+
+python evo.py  ./bigdataset/gt.g2o ./bigdataset_evo/gt.kitti
+python evo.py  ./bigdataset/gt_noise_lc.g2o ./bigdataset_evo/gt_noise_lc.kitti
+python evo.py  ./bigdataset/final.g2o ./bigdataset_evo/final.kitti
+
+
+cd data5_evo
+evo_traj kitti final.kitti --ref=gt.kitti -p --plot_mode=xy
+evo_traj kitti gt_noise_lc.kitti --ref=gt.kitti -p --plot_mode=xy
+evo_ape kitti gt.kitti gt_noise_lc.kitti -va --plot --plot_mode xy --save_results results/noise_ape.zip
+evo_ape kitti gt.kitti final.kitti -va --plot --plot_mode xy --save_results results/final_ape.zip
+evo_res results/*.zip -p --save_table results/table.csv
+
+#########################################
+
+Data 5
+--------------------------------------------------------------------------------
+name:   gt_noise_lc
+infos:  1830 poses, 66.455m path length
+--------------------------------------------------------------------------------
+name:   gt
+infos:  1830 poses, 66.455m path length
+--------------------------------------------------------------------------------
+name:   final
+infos:  1830 poses, 66.369m path length
+--------------------------------------------------------------------------------
+name:   gt
+infos:  1830 poses, 66.455m path length
+
+
+
+APE w.r.t. translation part (m)
+(with SE(3) Umeyama alignment)
+
+
+                       rmse      mean    median       std       min       max  \
+final.kitti        0.246044  0.225032  0.175442  0.099489  0.113345  0.403555   
+gt_noise_lc.kitti  0.645507  0.461244  0.244533  0.451589   0.00347  1.737651   
+
+                          sse  
+final.kitti        110.783889  
+gt_noise_lc.kitti   762.52287  
+
+##############################################################
+
+Big Dataset
+
+
+APE w.r.t. translation part (m)
+(with SE(3) Umeyama alignment)
+
+
+                       rmse      mean    median       std       min       max  \
+final.kitti        0.326867  0.287053  0.237916  0.156341  0.050394  0.856015   
+gt_noise_lc.kitti  0.444875  0.379846  0.418578  0.231584  0.026722  0.789747   
+
+                          sse  
+final.kitti        180.456277  
+
+#################################################################
