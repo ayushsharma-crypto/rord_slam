@@ -1,0 +1,24 @@
+Homography Matrix = 
+ [[ 1.50585851e+00  5.54748204e-01 -1.09995245e+02]
+ [ 8.79241137e-03  2.81493096e+00 -1.31824742e+02]
+ [ 1.38578191e-05  1.48632712e-03  1.00000000e+00]]
+Homography Matrix = 
+ [[ 1.48031982e+00  6.32183764e-01 -8.93315034e+01]
+ [ 2.38263225e-02  3.40383339e+00 -3.85145942e+01]
+ [ 6.04718973e-05  1.74451435e-03  1.00000000e+00]]
+Transformation matrix: 
+ [[ 0.999688    0.01323645 -0.02118257  0.00385114]
+ [-0.01311738  0.99989743  0.00575039 -1.11591862]
+ [ 0.02125652 -0.00547074  0.99975909  0.10839898]
+ [ 0.          0.          0.          1.        ]]
+Transformation matrix saved.
+Edge saved.
+0.9976083173756178 -0.006109451791261053 0.512267859116303 0.005368495311930183 0.0028055128570793663 0.011277406378199467 0.9999180608735275
+
+LP1 =  853  LP2 =  1516
+python ../getRealOneGazeboSE3.py --rgb /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Files/Eight_shaped_data_6DOF/Eight_shaped_data/rgb/rgb000853.jpg --depth /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Files/Eight_shaped_data_6DOF/Eight_shaped_data/depth/depth000853.npy --camera_file /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Actual\ Code/configs/camera_gazebo_drone.txt --save /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Actual\ Code/intermediate_data/Eight_shaped_data/new_Trans/000853.npy
+python ../getRealOneGazeboSE3.py --rgb /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Files/Eight_shaped_data_6DOF/Eight_shaped_data/rgb/rgb001516.jpg --depth /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Files/Eight_shaped_data_6DOF/Eight_shaped_data/depth/depth001516.npy --camera_file /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Actual\ Code/configs/camera_gazebo_drone.txt --save /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Actual\ Code/intermediate_data/Eight_shaped_data/new_Trans/001516.npy
+python ./register.py --rgb1 /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Files/Eight_shaped_data_6DOF/Eight_shaped_data/rgb/rgb000853.jpg --depth1 /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Files/Eight_shaped_data_6DOF/Eight_shaped_data/depth/depth000853.npy --rgb2 /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Files/Eight_shaped_data_6DOF/Eight_shaped_data/rgb/rgb001516.jpg --depth2 /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Files/Eight_shaped_data_6DOF/Eight_shaped_data/depth/depth001516.npy --camera_file /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Actual\ Code/configs/camera_gazebo_drone.txt --H /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Actual\ Code/intermediate_data/Eight_shaped_data/new_Trans/000853.npy --H2 /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Actual\ Code/intermediate_data/Eight_shaped_data/new_Trans/001516.npy --model_rord /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Files/models/rord.pth --save_trans /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Actual\ Code/intermediate_data/Eight_shaped_data/transLC_loop_pairs/000853-001516.npy
+python ./cordTrans.py --static_trans /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Actual\ Code/configs/camWrtBaseDrone.txt --rord_trans /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Actual\ Code/intermediate_data/Eight_shaped_data/transLC_loop_pairs/000853-001516.npy --save_edge /home/ayushsharma/Documents/College_IIIT-H_Files/RRC/RoRD\ SLAM/My\ RoRD\ Version/Actual\ Code/intermediate_data/Eight_shaped_data/odom_transLC_loop_pairs.txt --p1 853 --p2 1516 --se3 
+
+

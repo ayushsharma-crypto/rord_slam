@@ -131,10 +131,15 @@ def printEdge(T,p1,p2):
 	print(T[0, 3], T[0, 1], euler[2])
 
 
-def printEdgeSE3(T):
+def printEdgeSE3(T,p1,p2):
 	dx, dy, dz = T[0, 3], T[1, 3], T[2, 3]
 	dqx, dqy, dqz, dqw = list(R.from_dcm(T[0:3, 0:3]).as_quat())
 
+	if args.save_edge:
+			with open(args.save_edge, "a") as myfile:
+				myfile.write(str(p1)+" " +str(p2)+"\n")
+				myfile.write(str(dx)+ " " + str(dy)+ " " + str(dz)+ " " + str(dqx)+ " " + str(dqx)+ " " + str(dqz) + " " + str(dqw) + "\n")
+			print("Edge saved.")
 	print(dx, dy, dz, dqx, dqy, dqz, dqw)
 	# Rot = R.from_dcm(T[0:3, 0:3])
 	# euler = Rot.as_euler('xyz', degrees=True)
@@ -159,6 +164,6 @@ if __name__ == '__main__':
 	TB1B2R = TBC @ TC1C2R @ np.linalg.inv(TBC)
 
 	if args.se3:
-		printEdgeSE3(TB1B2R)
+		printEdgeSE3(TB1B2R,args.p1,args.p2)
 	else:
 		printEdge(TB1B2R,args.p1,args.p2)
