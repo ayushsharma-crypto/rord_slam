@@ -116,7 +116,7 @@ def addNoise(X, Y, Z, Qx, Qy, Qz, Qw):
 			# xNoise = 0.005; yNoise = 0.005; tNoise = -0.0005
 			# xNoise = 0.01; yNoise = 0.01; tNoise = 0.0007
 			# xNoise = 0; yNoise = 0; zNoise = 0; rollNoise = 0.00015; pitchNoise = 0.00015; yawNoise = 0.00015
-			xNoise = 0; yNoise = 0; zNoise = 0; rollNoise = 0.00025; pitchNoise = 0.00025; yawNoise = 0.00025
+			xNoise = 0; yNoise = 0; zNoise = 0; rollNoise = 0.0005; pitchNoise = 0.0005; yawNoise = 0.0005
 
 		dx += xNoise; dy += yNoise; dz += zNoise
 		dyaw += yawNoise; dpitch += pitchNoise; droll += rollNoise

@@ -215,7 +215,7 @@ if __name__ == '__main__':
 	XGt, YGt, ZGt, QxGt, QyGt, QzGt, QwGt = readG2o(argv[3])	
 	# draw(X, Y, Z)
 
-	drawTwo(XGt, YGt, ZGt, X, Y, Z)
+	# drawTwo(XGt, YGt, ZGt, X, Y, Z)
 
 	src, trg, trans = readLC(argv[2])
 	drawLC(X, Y, Z, src, trg)

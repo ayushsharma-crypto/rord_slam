@@ -180,7 +180,7 @@ def resizePxs(pxs, imgSize):
 	return pxs
 
 
-def getImgHomo(pcd, T, srcPxs, rgbFile, final_img_path):
+def getImgHomo(pcd, T, srcPxs, rgbFile, final_img_path=None):
 	pcd = getPointsInCamera(pcd, T)
 
 	pcdPoints, pcdColor = extractPCD(pcd)
@@ -195,8 +195,9 @@ def getImgHomo(pcd, T, srcPxs, rgbFile, final_img_path):
 
 	cv2.imshow("Image", warpImg)
 	cv2.waitKey(0)
-	status = cv2.imwrite(final_img_path,warpImg)
-	print("Path = ", final_img_path,"  Image written to file-system : ",status)
+	if final_img_path!=None:
+		status = cv2.imwrite(final_img_path,warpImg)
+		print("Path = ", final_img_path,"  Image written to file-system : ",status)
 
 	return warpImg, homographyMat
 

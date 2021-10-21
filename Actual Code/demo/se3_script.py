@@ -11,8 +11,8 @@ model_rord=root_dir+"Files/models/rord.pth"
 camWrtBase= root_dir+'Actual\ Code/configs/camWrtBaseDrone.txt'
 cam =root_dir+"Actual\ Code/configs/camera_gazebo_drone.txt"
 
-LP1 = [853 ]
-LP2 = [1516 ]
+LP1 = [853, 56, 795, 1576, 1541 ]
+LP2 = [1516, 1520, 1495, 840, 922 ]
 
 def call_GROG(rgb_file, depth_file, camera, save_path):
     cmd = "python ../getRealOneGazeboSE3.py --rgb "
