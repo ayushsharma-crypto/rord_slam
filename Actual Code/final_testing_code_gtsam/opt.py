@@ -104,21 +104,26 @@ def drawLC(X, Y, THETA, srcs, trgs, name):
 	plt.show()
 
 
-def optimize(save_file, noiselc):
+def optimize(save_file, noiselc, x0, y0, t0):
 	graph, initial = gtsam.readG2o(noiselc, is3D=False)
 
 	# Add prior on the pose having index (key) = 0
+	# x0, y0, t0 = -8.11295545835, -0.00335385260495, 0.009590975430197747
 	priorModel = gtsam.noiseModel.Diagonal.Variances(gtsam.Point3(1e-6, 1e-6, 1e-8))
-	graph.add(gtsam.PriorFactorPose2(0, gtsam.Pose2(), priorModel))
+	graph.add(gtsam.PriorFactorPose2(0, gtsam.Pose2(x0, y0, t0), priorModel))
+	# print("pppp =  ",gtsam.Pose2(x0, y0, t0), " initial = ", type(initial))
+	max_iterations=300
+	# params = gtsam.GaussNewtonParams()
+	# params.setVerbosity("Termination")
+	# params.setMaxIterations(max_iterations)
+	# # params.setRelativeErrorTol(1e-5)
+	# # Create the optimizer ...
+	# optimizer = gtsam.GaussNewtonOptimizer(graph, initial, params)
+	# # ... and optimize
+	params = gtsam.LevenbergMarquardtParams()
+	params.setVerbosity("Termination")  # this will show info about stopping conds
+	optimizer = gtsam.LevenbergMarquardtOptimizer(graph, initial, params)
 
-	max_iterations=100
-	params = gtsam.GaussNewtonParams()
-	params.setVerbosity("Termination")
-	params.setMaxIterations(max_iterations)
-	# parameters.setRelativeErrorTol(1e-5)
-	# Create the optimizer ...
-	optimizer = gtsam.GaussNewtonOptimizer(graph, initial, params)
-	# ... and optimize
 	result = optimizer.optimize()
 	print("Optimization complete")
 	print("initial error = ", graph.error(initial))
@@ -138,6 +143,6 @@ if __name__ == '__main__':
 	drawLC(X, Y, THETA, src, trg, "Noisy + LC (Before Optimisation)")
 
 	combine_lc_odometry(X, Y, THETA, src, trg, trans,argv[3])
-	optimize(argv[4],argv[3])
+	optimize(argv[4],argv[3], X[0], Y[0], THETA[0])
 	(xOpt, yOpt, tOpt) = read_pose_graph_vertices(argv[4])
 	drawLC(xOpt, yOpt, tOpt, src, trg, "Optimised")

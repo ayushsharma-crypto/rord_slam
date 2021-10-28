@@ -25,37 +25,46 @@ evo_traj kitti gt_noise_lc.kitti --ref=gt.kitti -p --plot_mode=xy
 evo_traj kitti final.kitti --ref=gt.kitti -p --plot_mode=xy
 evo_ape kitti gt.kitti gt_noise_lc.kitti -va --plot --plot_mode xy 
 evo_ape kitti gt.kitti final.kitti -va --plot --plot_mode xy 
+
 evo_res results/*.zip -p --save_table results/table.csv
 
 #########################################
 
 Data 5
---------------------------------------------------------------------------------
-name:   gt_noise_lc
-infos:  1830 poses, 66.455m path length
---------------------------------------------------------------------------------
-name:   gt
-infos:  1830 poses, 66.455m path length
---------------------------------------------------------------------------------
-name:   final
-infos:  1830 poses, 66.369m path length
---------------------------------------------------------------------------------
-name:   gt
-infos:  1830 poses, 66.455m path length
+
+noise_lc:
+
+
+       max      1.737651
+      mean      0.461244
+    median      0.244533
+       min      0.003470
+      rmse      0.645507
+       sse      762.522870
+       std      0.451589
 
 
 
-APE w.r.t. translation part (m)
-(with SE(3) Umeyama alignment)
+final opt:
+
+      max      0.714723
+      mean      0.363815
+    median      0.358834
+       min      0.043449
+      rmse      0.390684
+       sse      279.319684
+       std      0.142380
+
+using lm final:
 
 
-                       rmse      mean    median       std       min       max  \
-final.kitti        0.246044  0.225032  0.175442  0.099489  0.113345  0.403555   
-gt_noise_lc.kitti  0.645507  0.461244  0.244533  0.451589   0.00347  1.737651   
-
-                          sse  
-final.kitti        110.783889  
-gt_noise_lc.kitti   762.52287  
+       max      0.714838
+      mean      0.363829
+    median      0.358779
+       min      0.043468
+      rmse      0.390707
+       sse      279.353311
+       std      0.142410
 
 ##############################################################
 
@@ -65,12 +74,21 @@ Big Dataset
 APE w.r.t. translation part (m)
 (with SE(3) Umeyama alignment)
 
+OLD i.e. from g2o :-
 
                        rmse      mean    median       std       min       max  \
 final.kitti        0.326867  0.287053  0.237916  0.156341  0.050394  0.856015   
 gt_noise_lc.kitti  0.444875  0.379846  0.418578  0.231584  0.026722  0.789747   
 
-                          sse  
-final.kitti        180.456277  
+from GTSAM :-
+
+       max      3.872967
+      mean      1.526514
+    median      1.348034
+       min      0.154599
+      rmse      1.804574
+       sse      5500.204084
+       std      0.962414
+
 
 #################################################################
